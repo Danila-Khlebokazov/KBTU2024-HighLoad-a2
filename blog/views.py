@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.db.models import Prefetch
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -32,12 +33,12 @@ class PostsView(APIView):
             model = Post
             fields = ["title", "created_at", "comments_count", "tags", "author", "content"]
 
-    # @method_decorator(cache_page(60))
+    @method_decorator(cache_page(60))
     def get(self, request):
-        posts = Post.objects.select_related("author").prefetch_related("comments", "tags").all()
-        print(posts.explain())
+        posts = Post.objects.select_related("author").prefetch_related(
+            Prefetch("tags", queryset=Tag.objects.all()),
+        ).all()
 
         serializer = self.PostSerializer(posts, many=True)
-        # print(serializer)
 
         return Response(serializer.data)

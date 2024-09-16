@@ -38,7 +38,7 @@ class Post(models.Model):
         ordering = ["-created_at"]
         indexes = [
             models.Index(fields=["author"]),
-            models.Index(fields=["created_at", "author"]),
+            models.Index(fields=["created_at", "author_id"]),
         ]
 
 

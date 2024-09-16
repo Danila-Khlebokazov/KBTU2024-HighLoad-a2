@@ -81,7 +81,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'postgresql',
+        # 'HOST': 'postgresql',
+        'HOST': 'localhost',
         'PORT': 5432,
         'NAME': 'blog',
         'USER': 'user',
@@ -92,7 +93,8 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://redis:6379'
+        'LOCATION': 'redis://localhost:6379'
+        # 'LOCATION': 'redis://redis:6379'
     }
 }
 
