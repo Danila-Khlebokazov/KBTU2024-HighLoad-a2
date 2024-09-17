@@ -16,13 +16,19 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
-from django.views.decorators.cache import cache_page
 
 from blog.views import PostsView
 
+
+def health_check(request):
+    return HttpResponse("OK")
+
+
 urlpatterns = [
     path("", PostsView.as_view()),
+    path("health-check/", health_check),
     path('admin/', admin.site.urls),
 ]
 
