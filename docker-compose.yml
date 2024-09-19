@@ -7,6 +7,8 @@ services:
     depends_on:
       - postgresql
       - redis
+    volumes:
+      - static-volume:/app/static
 
   postgresql:
     container_name: postgresql
@@ -32,9 +34,10 @@ services:
       - "443:443"
     volumes:
       - ./nginx/nginx.local.conf:/etc/nginx/nginx.conf
-      - ./static/:/app/var/static
+      - static-volume:/app/var/static
     depends_on:
       - django-server
 
 volumes:
   postgresql-data:
+  static-volume:

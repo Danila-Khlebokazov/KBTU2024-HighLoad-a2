@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from blog.views import PostsView
 
@@ -36,5 +36,5 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns += [
-        path(r'^__debug__/', include(debug_toolbar.urls)),
+        re_path(r'^__debug__/', include(debug_toolbar.urls)),
     ]
