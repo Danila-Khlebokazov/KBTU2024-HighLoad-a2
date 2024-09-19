@@ -1,11 +1,23 @@
+from django.db.models import Prefetch
+from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.db.models import Prefetch
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Post, Comment, Tag, CustomUser
+from .models import Post, Comment
+from .models import Tag, CustomUser
+
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    recent_comments = Comment.objects.filter(post=post).order_by('-created_at')[:10]
+
+    return render(request, 'post_detail.html', {
+        'post': post,
+        'recent_comments': recent_comments,
+    })
 
 
 class PostsView(APIView):

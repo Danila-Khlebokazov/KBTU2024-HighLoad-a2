@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include, re_path
 
-from blog.views import PostsView
+from blog.views import PostsView, post_detail
 
 
 def health_check(request):
@@ -28,6 +28,7 @@ def health_check(request):
 
 urlpatterns = [
     path("", PostsView.as_view()),
+    path("<int:post_id>", post_detail),
     path("health-check/", health_check),
     path('admin/', admin.site.urls),
 ]
