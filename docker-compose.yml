@@ -9,6 +9,8 @@ services:
       - redis
     volumes:
       - static-volume:/app/var/static
+    deploy:
+      replicas: 3
 
   postgresql:
     container_name: postgresql
